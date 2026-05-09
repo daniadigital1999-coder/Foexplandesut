@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOREXPAL DESUT | Ceklis Profesional Swing Trading</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Roboto, sans-serif;}
+        :root {
+            --biru-tua: #061429;
+            --biru-gelap: #0c2040;
+            --biru-terang: #0099ff;
+            --biru-cerah: #66ccff;
+            --hijau-tegas: #00cc88;
+            --merah-tegas: #ff4d4d;
+            --kuning-emas: #ffcc00;
+            --putih-lembut: #e6f2ff;
+            --abu-lembut: #99ccff;
+        }
+        body {
+            min-height:100vh;
+            background:radial-gradient(circle at top, #0f274f, var(--biru-tua), #000);
+            background-image:linear-gradient(rgba(0, 150, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 150, 255, 0.05) 1px, transparent 1px);
+            background-size:28px 28px;
+            padding:25px 20px;
+            color:var(--putih-lembut);
+            line-height:1.6;
+        }
+        .wadah {max-width:650px;margin:0 auto;}
+        .kepala {
+            text-align:center;
+            padding:28px;
+            margin-bottom:32px;
+            border:2px solid var(--biru-terang);
+            border-radius:20px;
+            background:rgba(8, 35, 75, 0.75);
+            box-shadow:0 0 35px rgba(0, 153, 255, 0.4);
+            position:relative;
+            overflow:hidden;
+        }
+        .kepala::before {
+            content:"";
+            position:absolute;
+            top:0;left:0;right:0;bottom:0;
+            background:linear-gradient(135deg, rgba(0,153,255,0.15), transparent 60%);
+            pointer-events:none;
+        }
+        .nama-aplikasi {color:var(--kuning-emas);font-size:22px;font-weight:700;margin-bottom:10px;letter-spacing:1px;}
+        h1 {color:var(--biru-cerah);font-size:30px;margin-bottom:12px;text-transform:uppercase;letter-spacing:3px;font-weight:800;}
+        .info-tanggal {color:var(--abu-lembut);font-size:15px;font-weight:500;}
+
+        .bagian {
+            background:rgba(12, 32, 64, 0.82);
+            border-radius:18px;
+            padding:28px;
+            margin-bottom:28px;
+            border:1px solid rgba(0, 153, 255, 0.3);
+            box-shadow:0 0 25px rgba(0, 153, 255, 0.22);
+            transition:transform 0.25s ease;
+        }
+        .bagian:hover {transform:translateY(-2px);}
+
+        .judul-bagian {
+            color:var(--biru-cerah);
+            font-size:21px;
+            font-weight:700;
+            margin-bottom:22px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding-bottom:10px;
+            border-bottom:1px solid rgba(0, 153, 255, 0.25);
+        }
+        .daftar-periksa {
+            display:flex;
+            align-items:center;
+            gap:14px;
+            padding:14px;
+            margin-bottom:12px;
+            border-radius:12px;
+            background:rgba(0, 130, 255, 0.1);
+            cursor:pointer;
+            transition:all 0.25s ease;
+        }
+        .daftar-periksa:hover {background:rgba(0, 160, 255, 0.2);transform:translateX(4px);}
+        input[type="checkbox"] {width:24px;height:24px;accent-color:var(--hijau-tegas);cursor:pointer;flex-shrink:0;}
+        .teks-periksa {color:var(--putih-lembut);font-size:16px;font-weight:500;}
+        input:checked ~ .teks-periksa {color:var(--hijau-tegas);font-weight:600;}
+
+        .kolom-masuk, .kolom-pilih {
+            width:100%;
+            padding:16px;
+            margin-bottom:16px;
+            border-radius:12px;
+            border:1px solid var(--biru-terang);
+            background:rgba(8, 25, 60, 0.92);
+            color:white;
+            font-size:16px;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .kolom-masuk:focus, .kolom-pilih:focus {
+            outline:none;
+            border-color:var(--biru-cerah);
+            box-shadow:0 0 15px rgba(0, 153, 255, 0.4);
+        }
+        textarea.kolom-masuk {height:100px;resize:none;line-height:1.5;}
+        .dua-kolom {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+        .tiga-kolom {display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:28px;}
+
+        .tombol {
+            padding:16px;
+            border:none;
+            border-radius:12px;
+            font-weight:700;
+            font-size:16px;
+            cursor:pointer;
+            transition:all 0.25s ease;
+            text-transform:uppercase;
+            letter-spacing:1px;
+        }
+        .tombol-hijau {background:var(--hijau-tegas);color:#000;box-shadow:0 0 22px rgba(0, 204, 136, 0.5);}
+        .tombol-hijau:hover {background:#00e699;transform:translateY(-2px);box-shadow:0 0 28px rgba(0, 230, 153, 0.6);}
+        .tombol-biru {background:var(--biru-terang);color:#000;box-shadow:0 0 22px rgba(0, 153, 255, 0.5);}
+        .tombol-biru:hover {background:#33b3ff;transform:translateY(-2px);box-shadow:0 0 28px rgba(51, 179, 255, 0.6);}
+        .tombol-merah {background:var(--merah-tegas);color:#000;box-shadow:0 0 22px rgba(255, 77, 77, 0.5);}
+        .tombol-merah:hover {background:#ff8080;transform:translateY(-2px);box-shadow:0 0 28px rgba(255, 128, 128, 0.6);}
+        .tombol-kuning {background:var(--kuning-emas);color:#000;box-shadow:0 0 22px rgba(255, 204, 0, 0.5);}
+        .tombol-kuning:hover {background:#ffdd33;transform:translateY(-2px);box-shadow:0 0 28px rgba(255, 221, 51, 0.6);}
+
+        .catatan-riwayat {
+            background:rgba(15, 40, 80, 0.85);
+            border-radius:14px;
+            padding:22px;
+            margin-bottom:16px;
+            border:1px solid rgba(0, 153, 255, 0.35);
+        }
+        .tanggal-riwayat {color:var(--kuning-emas);font-weight:700;margin-bottom:10px;font-size:17px;}
+        .isi-riwayat {color:var(--putih-lembut);font-size:15px;line-height:1.7;margin-bottom:6px;}
+        .kosong {text-align:center;color:var(--abu-lembut);padding:30px;font-size:17px;font-weight:500;}
+        .kaki {text-align:center;margin-top:45px;color:var(--abu-lembut);font-size:15px;padding-bottom:30px;font-weight:500;}
+    </style>
+</head>
+<body>
+    <div class="wadah">
+        <!-- KEPALA UTAMA -->
+        <div class="kepala">
+            <div class="nama-aplikasi">🎖️ FOREXPAL DESUT</div>
+            <h1>CEKLIS PROFESIONAL SWING TRADING</h1>
+            <div class="info-tanggal" id="tanggal"></div>
+        </div>
+
+        <!-- 🎮 PERSIAPAN FISIK & MENTAL (MODE GAMING) -->
+        <div class="bagian">
+            <div class="judul-bagian">🎮 PERSIAPAN MODE GAMING & FOKUS</div>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Istirahat cukup, tubuh segar dan bugar sepenuhnya</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Perut terisi, sudah minum air putih yang cukup</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Lingkungan tenang, bebas gangguan luar</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Pikiran jernih, tidak sedang emosi, kecewa, atau serakah</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Siap fokus penuh, disiplin mengikuti rencana</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Sudah tetapkan batas kerugian harian & target keuntungan</span></label>
+        </div>
+
+        <!-- 💱 INFORMASI MATA UANG -->
+        <div class="bagian">
+            <div class="judul-bagian">💱 INFORMASI INSTRUMEN PERDAGANGAN</div>
+            <select class="kolom-pilih" id="mataUang">
+                <option value="">-- Pilih Pasangan Mata Uang Utama --</option>
+                <option value="EUR/USD">EUR/USD - Euro / Dolar Amerika Serikat</option>
+                <option value="GBP/USD">GBP/USD - Pound Inggris / Dolar AS</option>
+                <option value="USD/JPY">USD/JPY - Dolar AS / Yen Jepang</option>
+                <option value="USD/CAD">USD/CAD - Dolar AS / Dolar Kanada</option>
+                <option value="AUD/USD">AUD/USD - Dolar Australia / Dolar AS</option>
+                <option value="NZD/USD">NZD/USD - Dolar Selandia Baru / Dolar AS</option>
+                <option value="USD/CHF">USD/CHF - Dolar AS / Franc Swiss</option>
+                <option value="EUR/GBP">EUR/GBP - Euro / Pound Inggris</option>
+                <option value="EUR/JPY">EUR/JPY - Euro / Yen Jepang</option>
+                <option value="GBP/JPY">GBP/JPY - Pound Inggris / Yen Jepang</option>
+                <option value="XAU/USD">XAU/USD - Emas / Dolar AS</option>
+                <option value="XAG/USD">XAG/USD - Perak / Dolar AS</option>
+                <option value="EUR/AUD">EUR/AUD - Euro / Dolar Australia</option>
+                <option value="GBP/AUD">GBP/AUD - Pound Inggris / Dolar Australia</option>
+            </select>
+            <input type="text" class="kolom-masuk" id="arahPosisi" placeholder="↗️ Arah Transaksi: BELI / JUAL">
+        </div>
+
+        <!-- 📊 ANALISIS PASAR PROFESIONAL -->
+        <div class="bagian">
+            <div class="judul-bagian">📊 ANALISIS PASAR SWING LENGKAP</div>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Analisis tren utama pada kerangka waktu MINGGUAN</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Konfirmasi arah tren pada kerangka waktu HARIAN</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Identifikasi titik Dukungan & Perlawanan yang Kuat & Jelas</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Evaluasi indikator teknis: RSI, MACD, Moving Average, Bollinger Band</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Periksa kalender berita ekonomi & dampaknya terhadap pasangan mata uang</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Konfirmasi pola harga yang terbentuk: Kelanjutan atau Pembalikan</span></label>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Tidak melawan arah tren utama pasar</span></label>
+        </div>
+
+        <!-- 🎯 RENCANA MASUK & TARGET -->
+        <div class="bagian">
+            <div class="judul-bagian">🎯 RENCANA MASUK, TARGET & BATAS</div>
+            <div class="dua-kolom">
+                <input type="text" class="kolom-masuk" id="hargaMasuk" placeholder="📥 Harga Masuk yang Tepat">
+                <input type="text" class="kolom-masuk" id="takeProfit" placeholder="✅ Target Keuntungan (Take Profit)">
+            </div>
+            <div class="dua-kolom">
+                <input type="text" class="kolom-masuk" id="stopLoss" placeholder="🛑 Batas Kerugian (Stop Loss)">
+                <input type="text" class="kolom-masuk" id="rasioRR" placeholder="⚖️ Rasio Risiko : Imbalan (Minimal 1:2)">
+            </div>
+            <input type="text" class="kolom-masuk" id="ukuranLot" placeholder="📦 Ukuran Lot / Volume Transaksi Sesuai Modal">
+        </div>
+
+        <!-- 🛡️ MANAJEMEN RISIKO KETAT -->
+        <div class="bagian">
+            <div class="judul-bagian">🛡️ MANAJEMEN RISIKO TINGKAT PROFESIONAL</div>
+            <label class="daftar-periksa"><input type="checkbox"><span class="teks-periksa">Risiko per transaksi dibatasi maksimal 1% - 2% dari total modal</span></label
